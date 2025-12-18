@@ -1,0 +1,159 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GF Field Helper - Help Tooltips\n"
+"POT-Creation-Date: 2025-12-18 10:58+0100\n"
+"PO-Revision-Date: 2025-12-18 10:59+0100\n"
+"Last-Translator: Thierry Pigot <thierry.pigot@wearewp.pro>\n"
+"Language-Team: Thierry Pigot <thierry.pigot@wearewp.pro>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.8\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: gf-field-helper.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: gf-field-helper.php:66
+msgid "GF Field Helper requires Gravity Forms to work."
+msgstr "GF Field Helper nécessite Gravity Forms pour fonctionner."
+
+#: gf-field-helper.php:90
+msgid "Contextual Help (Tooltip)"
+msgstr "Aide contextuelle (info-bulle)"
+
+#: gf-field-helper.php:95
+msgid "Short text (visible)"
+msgstr "Texte court (visible)"
+
+#: gf-field-helper.php:102
+msgid "Ex: Where to find this information?"
+msgstr "Exemple : Où trouver ces informations ?"
+
+#: gf-field-helper.php:108
+msgid "Long text (in bubble)"
+msgstr "Texte long (dans une bulle)"
+
+#: gf-field-helper.php:115
+msgid "Detailed explanation that will appear in the help bubble..."
+msgstr "Explication détaillée qui apparaîtra dans la bulle d'aide..."
+
+#: gf-field-helper.php:118
+msgid "Basic HTML allowed: <strong>, <em>, <a href=\"\">, <br>"
+msgstr "HTML basique autorisé : <strong>, <em>, <a href=\"\">, <br>"
+
+#: gf-field-helper.php:124
+msgid "Help type"
+msgstr "Type d'aide"
+
+#: gf-field-helper.php:129
+msgid "Tooltip (bubble on click)"
+msgstr "Info-bulle (bulle au clic)"
+
+#: gf-field-helper.php:130
+msgid "Link to a page"
+msgstr "Lien vers la page"
+
+#: gf-field-helper.php:136
+msgid "Link URL"
+msgstr "URL du lien"
+
+#: gf-field-helper.php:203
+msgid "Short text"
+msgstr "Texte court"
+
+#: gf-field-helper.php:204
+msgid ""
+"This short text will be displayed next to the field label, with a \"?\" "
+"icon. It should encourage the user to click to learn more."
+msgstr ""
+"Ce court texte s'affichera à côté du libellé du champ, accompagné d'une "
+"icône « ? ». Il devrait inciter l'utilisateur à cliquer pour en savoir plus."
+
+#: gf-field-helper.php:208
+msgid "Long text"
+msgstr "Texte long"
+
+#: gf-field-helper.php:209
+msgid ""
+"This detailed text will appear in a bubble (tooltip) when the user clicks on "
+"the help. You can use basic HTML."
+msgstr ""
+"Ce texte détaillé apparaîtra dans une bulle (info-bulle) lorsque "
+"l'utilisateur cliquera sur l'aide. Vous pouvez utiliser le langage HTML de "
+"base."
+
+#: gf-field-helper.php:257
+msgid "Help: "
+msgstr "Aide : "
+
+#: gf-field-helper.php:570
+msgid ""
+"This plugin requires Gravity Forms. Please install and activate Gravity "
+"Forms first."
+msgstr ""
+"Ce plugin nécessite Gravity Forms. Veuillez d'abord installer et activer "
+"Gravity Forms."
+
+#: gf-field-helper.php:571
+msgid "Plugin not activated"
+msgstr "Plugin non activé"
+
+#. Plugin Name of the plugin/theme
+msgid "GF Field Helper - Help Tooltips"
+msgstr "GF Field Helper - Aide - Infobulles"
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://www.wearewp.pro"
+msgstr "https://www.wearewp.pro"
+
+#. Description of the plugin/theme
+msgid "Adds help tooltips to Gravity Forms fields with short text + long text"
+msgstr ""
+"Ajoute des infobulles d'aide aux champs Gravity Forms avec texte court + "
+"texte long"
+
+#. Author of the plugin/theme
+msgid "WeAre[WP]"
+msgstr "WeAre[WP]"
+
+#~ msgid "Texte court"
+#~ msgstr "Texte court"
+
+#~ msgid ""
+#~ "Ce texte court sera affiché à côté du label du champ, avec une icône \"?"
+#~ "\". Il doit inciter l'utilisateur à cliquer pour en savoir plus."
+#~ msgstr ""
+#~ "Ce texte court sera affiché à côté du label du champ, avec une icône "
+#~ "« ? ». Il doit inciter l'utilisateur à cliquer pour en savoir plus."
+
+#~ msgid "Texte long"
+#~ msgstr "Texte long"
+
+#~ msgid ""
+#~ "Ce texte détaillé apparaîtra dans une bulle (tooltip) lorsque "
+#~ "l'utilisateur cliquera sur l'aide. Vous pouvez utiliser du HTML basique."
+#~ msgstr ""
+#~ "Ce texte détaillé apparaîtra dans une bulle (tooltip) lorsque "
+#~ "l'utilisateur cliquera sur l'aide. Vous pouvez utiliser du HTML basique."
+
+#~ msgid "Aide : "
+#~ msgstr "Aide : "
+
+#~ msgid "Texte long (dans la bulle)"
+#~ msgstr "Texte long (dans la bulle)"
+
+#~ msgid "Explication détaillée qui apparaîtra dans la bulle d'aide..."
+#~ msgstr "Explication détaillée qui apparaîtra dans la bulle d'aide..."
+
+#~ msgid "Type d'aide"
+#~ msgstr "Type d'aide"
+
+#~ msgid "URL du lien"
+#~ msgstr "URL du lien"
