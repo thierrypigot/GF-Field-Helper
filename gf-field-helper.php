@@ -200,7 +200,7 @@ class GF_Field_Helper {
                     
                     <div style="margin-bottom: 12px;">
                         <label for="field_help_short" class="section_label" style="display: block; margin-bottom: 5px; font-weight: 600;">
-                            <?php esc_html_e('Short text (visible, optional)', 'gf-field-helper'); ?>
+                            <?php esc_html_e('Short text (optional)', 'gf-field-helper'); ?>
                             <?php gform_tooltip('field_help_short_tooltip'); ?>
                         </label>
                         <input type="text" 
@@ -307,7 +307,7 @@ class GF_Field_Helper {
             var currentLength = jQuery(this).val().length;
             if (currentLength > maxLength) {
                 jQuery(this).val(jQuery(this).val().substring(0, maxLength));
-                alert('<?php echo esc_js(__('Le texte court est limité à 200 caractères.', 'gf-field-helper')); ?>');
+                alert('<?php echo esc_js(__('Short text is limited to 200 characters.', 'gf-field-helper')); ?>');
             }
         });
 
@@ -317,7 +317,7 @@ class GF_Field_Helper {
             var currentLength = jQuery(this).val().length;
             if (currentLength > maxLength) {
                 jQuery(this).val(jQuery(this).val().substring(0, maxLength));
-                alert('<?php echo esc_js(__('Le texte long est limité à 2000 caractères.', 'gf-field-helper')); ?>');
+                alert('<?php echo esc_js(__('Long text is limited to 2000 characters.', 'gf-field-helper')); ?>');
             }
         });
 
@@ -330,7 +330,7 @@ class GF_Field_Helper {
             if (url && !url.match(/^https?:\/\//i)) {
                 jQuery(this).css('border-color', '#dc3232');
                 if (errorMsg.length === 0) {
-                    jQuery('<p class="url-error-message" style="color: #dc3232; font-size: 12px; margin-top: 5px;"><?php echo esc_js(__('L\'URL doit commencer par http:// ou https://', 'gf-field-helper')); ?></p>').insertAfter(jQuery(this));
+                    jQuery('<p class="url-error-message" style="color: #dc3232; font-size: 12px; margin-top: 5px;"><?php echo esc_js(__('URL must start with http:// or https://', 'gf-field-helper')); ?></p>').insertAfter(jQuery(this));
                 }
             } else {
                 jQuery(this).css('border-color', '');
@@ -634,8 +634,24 @@ class GF_Field_Helper {
             }
             
             .tippy-box[data-theme~="gf-help"] {
-                max-width: calc(100vw - 40px);
+                max-width: calc(100vw - 20px) !important;
+                width: calc(100vw - 20px) !important;
                 font-size: 13px;
+                padding: 12px 16px;
+            }
+            
+            .tippy-box[data-theme~="gf-help"][data-placement^="top"] {
+                margin-bottom: 8px;
+            }
+            
+            .tippy-box[data-theme~="gf-help"][data-placement^="bottom"] {
+                margin-top: 8px;
+            }
+            
+            .tippy-box[data-theme~="gf-help"][data-placement^="left"],
+            .tippy-box[data-theme~="gf-help"][data-placement^="right"] {
+                max-width: calc(100vw - 20px) !important;
+                width: calc(100vw - 20px) !important;
             }
         }
 
@@ -670,17 +686,37 @@ class GF_Field_Helper {
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize Tippy on all help triggers
             if (typeof tippy !== 'undefined') {
+                // Fonction pour détecter si on est sur mobile
+                function isMobile() {
+                    return window.innerWidth <= 640;
+                }
+                
+                // Fonction pour obtenir la largeur max adaptée
+                function getMaxWidth() {
+                    return isMobile() ? Math.min(380, window.innerWidth - 20) : 380;
+                }
+                
                 tippy('.gf-field-help-trigger', {
                     theme: 'gf-help',
                     trigger: 'click',
                     interactive: true,
-                    placement: 'right-start',
+                    placement: isMobile() ? 'top' : 'right-start',
                     animation: 'shift-away',
                     arrow: true,
-                    maxWidth: 380,
+                    maxWidth: getMaxWidth(),
                     appendTo: function() { return document.body; },
                     allowHTML: true,
+                    flip: true,
+                    preventOverflow: true,
+                    boundary: 'viewport',
                     onShow: function(instance) {
+                        // Ajuster le placement et la largeur sur mobile si nécessaire
+                        var mobile = isMobile();
+                        instance.setProps({ 
+                            placement: mobile ? 'top' : 'right-start',
+                            maxWidth: getMaxWidth()
+                        });
+                        
                         // Update aria-expanded
                         instance.reference.setAttribute('aria-expanded', 'true');
                         
@@ -704,6 +740,23 @@ class GF_Field_Helper {
                         instance.reference.setAttribute('aria-expanded', 'false');
                     }
                 });
+                
+                // Ajuster les tooltips ouverts lors du redimensionnement
+                var resizeTimer;
+                window.addEventListener('resize', function() {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(function() {
+                        document.querySelectorAll('.gf-field-help-trigger').forEach(function(el) {
+                            if (el._tippy && el._tippy.state.isVisible) {
+                                var mobile = isMobile();
+                                el._tippy.setProps({
+                                    placement: mobile ? 'top' : 'right-start',
+                                    maxWidth: getMaxWidth()
+                                });
+                            }
+                        });
+                    }, 150);
+                });
             }
         });
 
@@ -717,17 +770,38 @@ class GF_Field_Helper {
                     }
                 });
                 
+                // Fonction pour détecter si on est sur mobile
+                function isMobile() {
+                    return window.innerWidth <= 640;
+                }
+                
+                // Fonction pour obtenir la largeur max adaptée
+                function getMaxWidth() {
+                    return isMobile() ? Math.min(380, window.innerWidth - 20) : 380;
+                }
+                
                 // Reinitialize
                 tippy('.gf-field-help-trigger', {
                     theme: 'gf-help',
                     trigger: 'click',
                     interactive: true,
-                    placement: 'right-start',
+                    placement: isMobile() ? 'top' : 'right-start',
                     animation: 'shift-away',
                     arrow: true,
-                    maxWidth: 380,
+                    maxWidth: getMaxWidth(),
                     appendTo: function() { return document.body; },
-                    allowHTML: true
+                    allowHTML: true,
+                    flip: true,
+                    preventOverflow: true,
+                    boundary: 'viewport',
+                    onShow: function(instance) {
+                        // Ajuster le placement et la largeur sur mobile si nécessaire
+                        var mobile = isMobile();
+                        instance.setProps({ 
+                            placement: mobile ? 'top' : 'right-start',
+                            maxWidth: getMaxWidth()
+                        });
+                    }
                 });
             }
         });

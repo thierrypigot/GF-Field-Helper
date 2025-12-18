@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GF Field Helper - Help Tooltips\n"
-"POT-Creation-Date: 2025-12-18 10:58+0100\n"
-"PO-Revision-Date: 2025-12-18 10:59+0100\n"
+"POT-Creation-Date: 2025-12-18 13:07+0100\n"
+"PO-Revision-Date: 2025-12-18 13:07+0100\n"
 "Last-Translator: Thierry Pigot <thierry.pigot@wearewp.pro>\n"
 "Language-Team: Thierry Pigot <thierry.pigot@wearewp.pro>\n"
 "Language: fr_FR\n"
@@ -19,55 +19,67 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: gf-field-helper.php:66
+#: gf-field-helper.php:70
 msgid "GF Field Helper requires Gravity Forms to work."
 msgstr "GF Field Helper nécessite Gravity Forms pour fonctionner."
 
-#: gf-field-helper.php:90
+#: gf-field-helper.php:198
 msgid "Contextual Help (Tooltip)"
 msgstr "Aide contextuelle (info-bulle)"
 
-#: gf-field-helper.php:95
-msgid "Short text (visible)"
-msgstr "Texte court (visible)"
+#: gf-field-helper.php:203
+msgid "Short text (optional)"
+msgstr "Texte court (facultatif)"
 
-#: gf-field-helper.php:102
+#: gf-field-helper.php:210
 msgid "Ex: Where to find this information?"
 msgstr "Exemple : Où trouver ces informations ?"
 
-#: gf-field-helper.php:108
-msgid "Long text (in bubble)"
-msgstr "Texte long (dans une bulle)"
-
-#: gf-field-helper.php:115
-msgid "Detailed explanation that will appear in the help bubble..."
-msgstr "Explication détaillée qui apparaîtra dans la bulle d'aide..."
-
-#: gf-field-helper.php:118
-msgid "Basic HTML allowed: <strong>, <em>, <a href=\"\">, <br>"
-msgstr "HTML basique autorisé : <strong>, <em>, <a href=\"\">, <br>"
-
-#: gf-field-helper.php:124
+#: gf-field-helper.php:216
 msgid "Help type"
 msgstr "Type d'aide"
 
-#: gf-field-helper.php:129
+#: gf-field-helper.php:221
 msgid "Tooltip (bubble on click)"
 msgstr "Info-bulle (bulle au clic)"
 
-#: gf-field-helper.php:130
+#: gf-field-helper.php:222
 msgid "Link to a page"
 msgstr "Lien vers la page"
 
-#: gf-field-helper.php:136
+#: gf-field-helper.php:228
+msgid "Long text (in bubble)"
+msgstr "Texte long (dans une bulle)"
+
+#: gf-field-helper.php:235
+msgid "Detailed explanation that will appear in the help bubble..."
+msgstr "Explication détaillée qui apparaîtra dans la bulle d'aide..."
+
+#: gf-field-helper.php:238
+msgid "Basic HTML allowed: <strong>, <em>, <a href=\"\">, <br>"
+msgstr "HTML basique autorisé : <strong>, <em>, <a href=\"\">, <br>"
+
+#: gf-field-helper.php:244
 msgid "Link URL"
 msgstr "URL du lien"
 
-#: gf-field-helper.php:203
+#: gf-field-helper.php:310
+msgid "Short text is limited to 200 characters."
+msgstr "Le texte court est limité à 200 caractères."
+
+#: gf-field-helper.php:320
+msgid "Long text is limited to 2000 characters."
+msgstr "Les textes longs sont limités à 2000 caractères."
+
+#: gf-field-helper.php:333
+msgid "URL must start with http:// or https://"
+msgstr "L'URL doit commencer par http:// ou https://"
+
+#: gf-field-helper.php:350
 msgid "Short text"
 msgstr "Texte court"
 
-#: gf-field-helper.php:204
+#: gf-field-helper.php:351
 msgid ""
 "This short text will be displayed next to the field label, with a \"?\" "
 "icon. It should encourage the user to click to learn more."
@@ -75,11 +87,11 @@ msgstr ""
 "Ce court texte s'affichera à côté du libellé du champ, accompagné d'une "
 "icône « ? ». Il devrait inciter l'utilisateur à cliquer pour en savoir plus."
 
-#: gf-field-helper.php:208
+#: gf-field-helper.php:355
 msgid "Long text"
 msgstr "Texte long"
 
-#: gf-field-helper.php:209
+#: gf-field-helper.php:356
 msgid ""
 "This detailed text will appear in a bubble (tooltip) when the user clicks on "
 "the help. You can use basic HTML."
@@ -88,11 +100,16 @@ msgstr ""
 "l'utilisateur cliquera sur l'aide. Vous pouvez utiliser le langage HTML de "
 "base."
 
-#: gf-field-helper.php:257
-msgid "Help: "
-msgstr "Aide : "
+#: gf-field-helper.php:415 gf-field-helper.php:432
+msgid "Help"
+msgstr "Aide"
 
-#: gf-field-helper.php:570
+#: gf-field-helper.php:431
+#, php-format
+msgid "Help: %s"
+msgstr "Aide : %s"
+
+#: gf-field-helper.php:843
 msgid ""
 "This plugin requires Gravity Forms. Please install and activate Gravity "
 "Forms first."
@@ -100,7 +117,7 @@ msgstr ""
 "Ce plugin nécessite Gravity Forms. Veuillez d'abord installer et activer "
 "Gravity Forms."
 
-#: gf-field-helper.php:571
+#: gf-field-helper.php:844
 msgid "Plugin not activated"
 msgstr "Plugin non activé"
 
