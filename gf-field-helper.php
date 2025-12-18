@@ -362,6 +362,17 @@ class GF_Field_Helper {
      * Renders help on frontend
      */
     public function render_field_help($content, $field, $value, $lead_id, $form_id) {
+        // Ne pas afficher les helpers dans la vue d'entrée de l'admin
+        if (is_admin()) {
+            // Vérifier si on est sur la page d'entrée Gravity Forms
+            $current_page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : '';
+            $current_view = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : '';
+            
+            if ($current_page === 'gf_entries' && $current_view === 'entry') {
+                return $content;
+            }
+        }
+        
         // Valider et nettoyer le texte court (peut être vide)
         $short_text_raw = isset($field->fieldHelpShort) ? $field->fieldHelpShort : '';
         $short_text_raw = $this->validate_text_length($short_text_raw, 'short');
