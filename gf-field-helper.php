@@ -3,7 +3,7 @@
  * Plugin Name: GF Field Helper - Help Tooltips
  * Plugin URI: https://www.wearewp.pro
  * Description: Adds help tooltips to Gravity Forms fields with short text + long text
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: WeAre[WP]
  * Author URI: https://www.wearewp.pro
  * Text Domain: gf-field-helper
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('GF_FIELD_HELPER_VERSION', '1.0.1');
+define('GF_FIELD_HELPER_VERSION', '1.0.2');
 define('GF_FIELD_HELPER_PATH', plugin_dir_path(__FILE__));
 define('GF_FIELD_HELPER_URL', plugin_dir_url(__FILE__));
 
@@ -200,7 +200,7 @@ class GF_Field_Helper {
                     
                     <div style="margin-bottom: 12px;">
                         <label for="field_help_short" class="section_label" style="display: block; margin-bottom: 5px; font-weight: 600;">
-                            <?php esc_html_e('Short text (visible)', 'gf-field-helper'); ?>
+                            <?php esc_html_e('Short text (visible, optional)', 'gf-field-helper'); ?>
                             <?php gform_tooltip('field_help_short_tooltip'); ?>
                         </label>
                         <input type="text" 
@@ -362,12 +362,7 @@ class GF_Field_Helper {
      * Renders help on frontend
      */
     public function render_field_help($content, $field, $value, $lead_id, $form_id) {
-        // Do nothing if no short text defined
-        if (empty($field->fieldHelpShort)) {
-            return $content;
-        }
-
-        // Valider et nettoyer le texte court
+        // Valider et nettoyer le texte court (peut être vide)
         $short_text_raw = isset($field->fieldHelpShort) ? $field->fieldHelpShort : '';
         $short_text_raw = $this->validate_text_length($short_text_raw, 'short');
         $short_text = wp_kses($short_text_raw, [
@@ -375,6 +370,7 @@ class GF_Field_Helper {
             'em' => [],
             'br' => [],
         ]);
+        $has_short_text = !empty(trim($short_text));
 
         // Valider et nettoyer le texte long
         $long_text_raw = isset($field->fieldHelpLong) ? $field->fieldHelpLong : '';
@@ -397,29 +393,57 @@ class GF_Field_Helper {
             }
         }
 
+        // Ne rien afficher si pas de contenu (ni texte court, ni texte long pour tooltip, ni URL pour link)
+        if (!$has_short_text && empty(trim($long_text)) && empty($help_link)) {
+            return $content;
+        }
+
+        // Pour tooltip, il faut au moins un texte long
+        if ($help_type === 'tooltip' && empty(trim($long_text))) {
+            return $content;
+        }
+
+        // Pour link, il faut au moins une URL
+        if ($help_type === 'link' && empty($help_link)) {
+            return $content;
+        }
+
         // Build help HTML
         if ($help_type === 'link' && $help_link) {
+            // Afficher le texte seulement s'il existe
+            $text_html = $has_short_text ? '<span class="gf-field-help-text">' . $short_text . '</span>' : '';
+            $aria_label = $has_short_text ? esc_attr($short_text) : esc_attr__('Help', 'gf-field-helper');
+            $icon_only_class = $has_short_text ? '' : ' gf-field-help-icon-only';
+            
             $help_html = sprintf(
-                '<a href="%s" class="gf-field-help-link" target="_blank" rel="noopener noreferrer">
-                    <span class="gf-field-help-icon" aria-hidden="true">?</span>
-                    <span class="gf-field-help-text">%s</span>
+                '<a href="%s" class="gf-field-help-link%s" target="_blank" rel="noopener noreferrer" aria-label="%s">
+                    <span class="gf-field-help-icon" aria-hidden="true">?</span>%s
                 </a>',
                 $help_link,
-                $short_text
+                $icon_only_class,
+                $aria_label,
+                $text_html
             );
         } else {
+            // Afficher le texte seulement s'il existe
+            $text_html = $has_short_text ? '<span class="gf-field-help-text">' . $short_text . '</span>' : '';
+            $aria_label = $has_short_text 
+                ? esc_attr(sprintf(__('Help: %s', 'gf-field-helper'), $short_text))
+                : esc_attr__('Help', 'gf-field-helper');
+            $icon_only_class = $has_short_text ? '' : ' gf-field-help-icon-only';
+            
             $help_html = sprintf(
                 '<button type="button" 
-                        class="gf-field-help-trigger" 
+                        class="gf-field-help-trigger%s" 
                         data-tippy-content="%s"
                         aria-label="%s"
                         aria-expanded="false">
-                    <span class="gf-field-help-icon" aria-hidden="true">?</span>
-                    <span class="gf-field-help-text">%s</span>
+                    <span class="gf-field-help-icon" aria-hidden="true">?</span>%s
                 </button>',
+                $icon_only_class,
                 esc_attr($long_text),
-                esc_attr(sprintf(__('Help: %s', 'gf-field-helper'), $short_text)),
-                $short_text
+                $aria_label,
+                $text_html
             );
         }
 
@@ -439,10 +463,14 @@ class GF_Field_Helper {
      * Assets for frontend
      */
     public function enqueue_frontend_assets($form, $is_ajax) {
-        // Check if at least one field has help
+        // Check if at least one field has help (texte court, texte long, ou URL)
         $has_help = false;
         foreach ($form['fields'] as $field) {
-            if (!empty($field->fieldHelpShort)) {
+            $has_short = !empty($field->fieldHelpShort);
+            $has_long = !empty($field->fieldHelpLong);
+            $has_link = !empty($field->fieldHelpLink) && !empty($field->fieldHelpType) && $field->fieldHelpType === 'link';
+            
+            if ($has_short || $has_long || $has_link) {
                 $has_help = true;
                 break;
             }
@@ -508,6 +536,12 @@ class GF_Field_Helper {
             border-radius: 4px;
             transition: all 0.2s ease;
             vertical-align: middle;
+        }
+
+        /* Quand il n\'y a pas de texte, ajuster le padding pour centrer l\'icône */
+        .gf-field-help-trigger.gf-field-help-icon-only,
+        .gf-field-help-link.gf-field-help-icon-only {
+            padding: 4px;
         }
 
         .gf-field-help-trigger:hover,
